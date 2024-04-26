@@ -1,0 +1,32 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "John",
+      "email": "john123@ex.com",
+      "password": "john@123",
+      "role": "developer"
+    },
+    {
+      "id": "0b89",
+      "email": "dave123@ex.com",
+      "password": "dave@123",
+      "name": "dave",
+      "role": "designer"
+    },
+    {
+      "id": "8fbb",
+      "email": "drew123@ex.com",
+      "password": "drew@123",
+      "name": "drew",
+      "role": "developer"
+    },
+    {
+      "id": "33ed",
+      "email": "roman123@ex.com",
+      "password": "roman@123",
+      "name": "roman",
+      "role": "accountant"
+    }
+  ]
+}
