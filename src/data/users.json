@@ -8,6 +8,13 @@
       "role": "developer"
     },
     {
+      "id": "198",
+      "name": "Himanshu",
+      "email": "hm@ex.com",
+      "password": "hm@1",
+      "role": "developer"
+    },
+    {
       "id": "0b89",
       "email": "dave123@ex.com",
       "password": "dave@123",

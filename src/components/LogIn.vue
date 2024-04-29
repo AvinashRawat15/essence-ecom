@@ -14,11 +14,11 @@
                             </v-toolbar>
                             <v-card-text>
                                 <v-form @submit.prevent="login">
-                                    <v-text-field density="compact" placeholder="Email address"
+                                    <v-text-field density="compact" placeholder="Email address" v-model="email"
                                         prepend-inner-icon="mdi-email-outline" variant="outlined"></v-text-field>
                                     <v-text-field :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
                                         :type="visible ? 'text' : 'password'" density="compact"
-                                        placeholder="Enter your password" prepend-inner-icon="mdi-lock-outline"
+                                        placeholder="Enter your password" prepend-inner-icon="mdi-lock-outline" v-model="password"
                                         variant="outlined" @click:append-inner="visible = !visible"></v-text-field>
                                     <p class="text-caption text-decoration-none text-blue">Forgot Password?
                                         <!-- <router-link to="/SignUp">Sign Up</router-link> -->
@@ -130,17 +130,18 @@ export default {
     methods: {
         async login() {
             try {
-                const response = await axios.get('http://localhost:3000/users', {
-                    params: {
+                let userObj = {
                         email: this.email,
                         password: this.password,
-                    },
+                    }
+                const response = await axios.get('http://localhost:3000/users', {
+                    params: userObj,
                 });
 
                 if (response.data.length > 0) {
                     alert('Login successful');
                     // Store user credentials in localStorage
-                    localStorage.setItem('userCredentials', JSON.stringify({ email: this.email, password: this.password }));
+                    localStorage.setItem('userCredentials', JSON.stringify(userObj));
                     this.$router.push({ name: 'HomePage' }); 
                 } else {
                     alert('Invalid email or password');
