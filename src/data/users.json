@@ -27,6 +27,13 @@
       "password": "roman@123",
       "name": "roman",
       "role": "accountant"
+    },
+    {
+      "id": "0261",
+      "email": "johndoe123@ex.com",
+      "password": "johndoe@123",
+      "name": "John Doe",
+      "role": "ceo"
     }
   ]
 }

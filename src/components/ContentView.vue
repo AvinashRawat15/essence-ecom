@@ -19,7 +19,8 @@
                             </v-btn>
                             <v-btn @click="addToWishlist" class="ma-2" color="pink" size="small" icon="mdi-heart"
                                 to="/favourites"></v-btn>
-                            <v-card-text>{{ product.description }}</v-card-text>
+                            <v-card-text display: -webkit-box; -webkit-line-clamp: 3;>{{ product.description
+                            }}</v-card-text>
                         </v-card>
                     </v-col>
                 </v-row>
@@ -59,3 +60,8 @@ export default {
 };
 </script>
   
+<!-- <style>
+product.description{
+
+}
+</style> -->

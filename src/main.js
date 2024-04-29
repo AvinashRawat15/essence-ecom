@@ -13,8 +13,9 @@ import router from '../src/router/index'
  
 // Composables
 import { createApp } from 'vue'
-
-const app = createApp(App).use(router)
+import { createPinia } from 'pinia';
+const pinia = createPinia();
+const app = createApp(App).use(router).use(pinia);
 
 registerPlugins(app)
 

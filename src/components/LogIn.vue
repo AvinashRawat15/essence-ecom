@@ -8,8 +8,7 @@
                             <v-toolbar color="#6363c5" dark>
                                 <v-toolbar-title>Login</v-toolbar-title>
                                 <v-spacer></v-spacer>
-                                <v-tooltip bottom>a
-
+                                <v-tooltip bottom>
                                     <span>Reset Password</span>
                                 </v-tooltip>
                             </v-toolbar>
@@ -32,8 +31,8 @@
                                     <v-checkbox color="primary" model="rememberMe" label="Remember Me"></v-checkbox>
                                     <v-snackbar :timeout="1000">
                                         <template v-slot:activator="{ props }">
-                                            <v-btn class="mb-4" v-bind="props" type="submit" color="primary" rounded
-                                                >Login</v-btn>
+                                            <v-btn class="mb-4" v-bind="props" type="submit" color="primary"
+                                                rounded>Login</v-btn>
                                         </template>
                                         Login Successful
                                     </v-snackbar>
@@ -51,15 +50,16 @@
     </v-app>
 </template>
 
-
+<!-- 
 <script>
 import axios from 'axios';
 
 export default {
+    // component:'login',
     data() {
         return {
-            visible: false,
-            rememberMe: false,
+            // visible: false,
+            // rememberMe: false,
             rememberMe: localStorage.getItem('rememberMe') === 'true',
             email: '',
             password: '',
@@ -76,7 +76,6 @@ export default {
                 });
                 if (response.data.length > 0) {
                     alert('Login successful');
-                    // <router-link to="profile"></router-link>
                     this.$router.push({ name: 'HomePage' })
                 } else {
                     alert('Invalid email or password');
@@ -86,11 +85,71 @@ export default {
             }
         },
         isUserAuthenticated() {
-            let user = localStorage.getItem('user.info');
-            if (user) {
-                this.$router.push({ name: 'HomePage' })
+            // const user = localStorage.getItem('user.info');
+            // if (user) {
+            //     this.$router.push({ name: 'HomePage' })
+            // }
+            const username = document.getElementById('uname').value;
+            const password = document.getElementById('psw').value;
+
+            // Store all users' credentials in localStorage
+            localStorage.setItem('all_users', JSON.stringify(a));
+
+            sessionStorage.setItem('current_user', JSON.stringify({ name: username, password: password }));
+        }
+    },
+    submitForm() {
+        // Save the checkbox value to localStorage
+        if (this.rememberMe) {
+            localStorage.setItem('rememberMe', 'true');
+        } else {
+            localStorage.removeItem('rememberMe');
+        }
+    },
+    mounted() {
+        this.isUserAuthenticated()
+    },
+}
+};
+</script> -->
+  
+<script>
+import axios from 'axios';
+
+export default {
+    // name: 'Login',
+
+    data() {
+        return {
+            rememberMe: localStorage.getItem('rememberMe') === 'true',
+            email: '',
+            password: '',
+        };
+    },
+
+    methods: {
+        async login() {
+            try {
+                const response = await axios.get('http://localhost:3000/users', {
+                    params: {
+                        email: this.email,
+                        password: this.password,
+                    },
+                });
+
+                if (response.data.length > 0) {
+                    alert('Login successful');
+                    // Store user credentials in localStorage
+                    localStorage.setItem('userCredentials', JSON.stringify({ email: this.email, password: this.password }));
+                    this.$router.push({ name: 'HomePage' }); 
+                } else {
+                    alert('Invalid email or password');
+                }
+            } catch (error) {
+                console.error('Error during login:', error);
             }
         },
+
         submitForm() {
             // Save the checkbox value to localStorage
             if (this.rememberMe) {
@@ -99,9 +158,7 @@ export default {
                 localStorage.removeItem('rememberMe');
             }
         },
-        mounted() {
-            this.isUserAuthenticated()
-        },
-    }
+    },
 };
 </script>
+  

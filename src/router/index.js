@@ -6,6 +6,7 @@ import CartView from "../components/CartView.vue";
 import LogIn from "../components/LogIn.vue";
 import SignUp from "../components/SignUp.vue";
 import favourites from "../components/FavouriteView.vue";
+import profileview from "../components/ProfileView.vue";
 // const about = ()=> import ('/about')
 
 const routes = [
@@ -28,13 +29,12 @@ const routes = [
     path: "/LogIn",
     name: "LogIn",
     component: LogIn,
-    children:[
-      {
-        path: "/profile",
-        name: "profile",
-                component: () => import("../components/ProfileView.vue"),
-      }
-    ]
+  },
+  {
+    path: "/ProfileView",
+    name: "profileview",
+    component:'profileview',
+    // component: () => import("../components/ProfileView.vue"),
   },
   {
     path: "/SignUp",
