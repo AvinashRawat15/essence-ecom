@@ -19,8 +19,8 @@
                             </v-btn>
                             <v-btn @click="addToWishlist" class="ma-2" color="pink" size="small" icon="mdi-heart"
                                 to="/favourites"></v-btn>
-                            <v-card-text display: -webkit-box; -webkit-line-clamp: 3;>{{ product.description
-                            }}</v-card-text>
+                            <!-- <v-card-text display: -webkit-box; -webkit-line-clamp: 3;>{{ product.description
+                            }}</v-card-text> -->
                         </v-card>
                     </v-col>
                 </v-row>
@@ -41,6 +41,7 @@ export default {
     async mounted() {
         try {
             const response = await axios.get('https://fakestoreapi.com/products');
+            console.log('response ------ ',response);
             this.products = response.data;
         } catch (error) {
             console.error('Error fetching data:', error);
