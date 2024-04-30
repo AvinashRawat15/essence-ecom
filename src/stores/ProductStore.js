@@ -1,6 +1,6 @@
-import {defineStore} from "pinia";
+import {defineStore} from "pinia"; //makes the store
 
-// import products from "../data/products.json";
+import products from "../data/products.json";
 
 export const useProductStore = defineStore("ProductStore",{
     state:()=>{
