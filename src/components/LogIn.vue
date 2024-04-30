@@ -77,7 +77,7 @@ export default {
                     alert('Login successful');
                     // Store user credentials in localStorage
                     let userData = response.data[0]
-                    localStorage.setItem('userCredentials', JSON.stringify({name: userData.name, email: userData.email, password: userData.password, role: userData.role}));
+                    localStorage.setItem('userCredentials', JSON.stringify({...userData}));
                     this.$router.push({ name: 'HomePage' }); 
                 } else {
                     alert('Invalid email or password');
