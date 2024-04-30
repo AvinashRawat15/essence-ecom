@@ -28,20 +28,6 @@
           </template>
         </v-tooltip>
 
-        <!-- <v-tooltip text="Search" location="bottom">
-          <template v-slot:activator="{ props }">
-            <v-btn v-bind="props" icon="mdi-magnify" @click="dialog = true"></v-btn>
-            <v-dialog v-model="dialog" width="400" class="flex">
-              <v-card color="surface-light" max-width="400">
-                <v-card-text>
-                  <v-text-field :loading="loading" append-inner-icon="mdi-magnify" density="default" label="Search"
-                    variant="regular" hide-details single-line @click:append-inner="onClick"></v-text-field>
-                </v-card-text>
-              </v-card>
-            </v-dialog>
-          </template>
-        </v-tooltip> -->
-
         <v-tooltip text="Search" location="bottom">
           <template v-slot:activator="{ props }">
             <v-btn v-bind="props" icon="mdi-magnify"></v-btn>
@@ -53,9 +39,31 @@
             <v-btn v-bind="props" icon="mdi-account-circle" to="/LogIn"></v-btn>
           </template>
         </v-tooltip>
-        <v-btn v-else v-bind="props" to="/LogIn" @click="logout"
-          >Log out</v-btn
-        >
+        <v-btn v-else v-bind="props" to="/LogIn" @click="logout">Log out</v-btn>
+
+        <v-menu v-if="userData?.id" min-width="200px" rounded>
+          <template v-slot:activator="{ props }">
+            <v-btn icon v-bind="props">
+              <v-avatar color="brown" size="large">
+                <span class="text-h5">{{
+                  userData?.name?.slice(0, 2)?.toUpperCase()
+                }}</span>
+              </v-avatar>
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-text>
+              <div class="mx-auto text-center">
+                <h3>Hi, {{ userData.name }}</h3>
+                <p class="text-caption mt-1">
+                  {{ userData.email }}
+                </p>
+                <v-divider class="my-3"></v-divider>
+                <v-btn variant="text" rounded @click="logout"> Logout </v-btn>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-menu>
       </template>
     </v-app-bar>
 
@@ -72,11 +80,7 @@
 <script>
 export default {
   name: "HeaderView",
-  // components: {
-  //   profile
-  // },
   data: () => ({
-    // user: null,
     drawer: false,
     dialog: false,
     items: [
@@ -105,13 +109,13 @@ export default {
   },
   methods: {
     logout() {
-      localStorage.clear()
-    }
+      localStorage.clear();
+    },
   },
   computed: {
-    userName() {
+    userData() {
       let userData = JSON.parse(localStorage.getItem("userCredentials"));
-      return userData?.name || null;
+      return userData || null;
     },
   },
 };
