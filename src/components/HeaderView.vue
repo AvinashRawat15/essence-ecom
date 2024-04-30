@@ -1,8 +1,12 @@
 <template>
   <v-container class="mb-8 bg-primary">
-    <v-app-bar class="indigo" :elevation="2" style="background-color: #6363c5;">
+    <v-app-bar class="indigo" :elevation="2" style="background-color: #6363c5">
       <template v-slot:prepend>
-        <v-app-bar-nav-icon color="white" variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon
+          color="white"
+          variant="text"
+          @click.stop="drawer = !drawer"
+        ></v-app-bar-nav-icon>
 
         <v-btn variant="text" link to="/">Essence</v-btn>
       </template>
@@ -10,7 +14,12 @@
       <template v-slot:append>
         <v-tooltip text="Favourites" location="bottom">
           <template v-slot:activator="{ props }">
-            <v-btn v-bind="props" color="pink" icon="mdi-heart" to="/favourites"></v-btn>
+            <v-btn
+              v-bind="props"
+              color="pink"
+              icon="mdi-heart"
+              to="/favourites"
+            ></v-btn>
           </template>
         </v-tooltip>
         <v-tooltip text="Go to Cart" location="bottom">
@@ -38,16 +47,23 @@
             <v-btn v-bind="props" icon="mdi-magnify"></v-btn>
           </template>
         </v-tooltip>
-        <v-tooltip text="Profile" location="bottom">
+        <h1 v-if="userName">Hi, {{ userName }}</h1>
+        <v-tooltip v-if="!userName" text="Profileooo" location="bottom">
           <template v-slot:activator="{ props }">
             <v-btn v-bind="props" icon="mdi-account-circle" to="/LogIn"></v-btn>
           </template>
         </v-tooltip>
-
+        <v-btn v-else v-bind="props" to="/LogIn" @click="logout"
+          >Log out</v-btn
+        >
       </template>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" :location="$vuetify.display.mobile ? 'bottom' : undefined" temporary>
+    <v-navigation-drawer
+      v-model="drawer"
+      :location="$vuetify.display.mobile ? 'bottom' : undefined"
+      temporary
+    >
       <v-list :items="items"></v-list>
     </v-navigation-drawer>
   </v-container>
@@ -65,26 +81,37 @@ export default {
     dialog: false,
     items: [
       {
-        title: 'Foo',
-        value: 'foo',
+        title: "Foo",
+        value: "foo",
       },
       {
-        title: 'Bar',
-        value: 'bar',
+        title: "Bar",
+        value: "bar",
       },
       {
-        title: 'Fizz',
-        value: 'fizz',
+        title: "Fizz",
+        value: "fizz",
       },
       {
-        title: 'Buzz',
-        value: 'buzz',
+        title: "Buzz",
+        value: "buzz",
       },
     ],
   }),
   watch: {
     group() {
-      this.drawer = false
+      this.drawer = false;
+    },
+  },
+  methods: {
+    logout() {
+      localStorage.clear()
+    }
+  },
+  computed: {
+    userName() {
+      let userData = JSON.parse(localStorage.getItem("userCredentials"));
+      return userData?.name || null;
     },
   },
 };

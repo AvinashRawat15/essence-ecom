@@ -70,10 +70,13 @@ export default {
                     params: userObj,
                 });
 
+                console.log('response ------------------------>  ',response);
+
                 if (response.data.length > 0) {
                     alert('Login successful');
                     // Store user credentials in localStorage
-                    localStorage.setItem('userCredentials', JSON.stringify(userObj));
+                    let userData = response.data[0]
+                    localStorage.setItem('userCredentials', JSON.stringify({name: userData.name, email: userData.email, password: userData.password, role: userData.role}));
                     this.$router.push({ name: 'HomePage' }); 
                 } else {
                     alert('Invalid email or password');
