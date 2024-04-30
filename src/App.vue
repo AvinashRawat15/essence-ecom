@@ -2,7 +2,7 @@
   <v-app>
     <HeaderView />
     <router-view />
-    <ContentView />
+    <!-- <ContentView /> -->
     <!-- <CartView /> -->
     <!-- <LogIn /> -->
     <FooterView />
@@ -13,7 +13,7 @@
 <script>
 // import HeaderView from "./components/HeaderView.vue";
 // import FooterView from "./components/FooterView.vue";
-import ContentView from "./components/ContentView.vue";
+// import ContentView from "./components/ContentView.vue";
 import CartView from "./components/CartView.vue";
 import LogIn from "./components/LogIn.vue";
 import favourites from "./components/FavouriteView.vue";
@@ -29,7 +29,7 @@ export default {
   components: {
     // HeaderView,
     // FooterView,
-    ContentView,
+    // ContentView,
     CartView,
     LogIn,
     favourites,

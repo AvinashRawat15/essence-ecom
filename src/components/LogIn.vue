@@ -53,6 +53,7 @@ export default {
 
     data() {
         return {
+            visible: false,
             rememberMe: localStorage.getItem('rememberMe') === 'true',
             email: '',
             password: '',
