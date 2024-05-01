@@ -2,7 +2,9 @@
   <v-app>
     <HeaderView />
     <router-view />
-    <!-- <ContentView /> -->
+    <ContentView v-for="product in []"
+    :key="product.name"
+    :product="product"/>
     <!-- <CartView /> -->
     <!-- <LogIn /> -->
     <FooterView />
@@ -13,14 +15,15 @@
 <script>
 // import HeaderView from "./components/HeaderView.vue";
 // import FooterView from "./components/FooterView.vue";
-// import ContentView from "./components/ContentView.vue";
+import ContentView from "./components/ContentView.vue";
 import CartView from "./components/CartView.vue";
 import LogIn from "./components/LogIn.vue";
 import favourites from "./components/FavouriteView.vue";
 // import profileview from "./components/ProfileView.vue";
-// import {storeToRefs} from 'pinia';
 // import {useProductStore} from "./stores/ProductStore"
-// const productStore = useProductStore();
+import {storeToRefs} from 'pinia';
+// import products from "@/data/products.json";
+// const {products} = storeToRefs(useProductStore());
 // productStore.fill();
 
 export default {

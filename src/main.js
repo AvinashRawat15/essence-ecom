@@ -10,12 +10,15 @@ import { registerPlugins } from '@/plugins'
 // Components
 import App from './App.vue'
 import router from '../src/router/index'
- 
+
 // Composables
 import { createApp } from 'vue'
 import { createPinia } from 'pinia';
 const pinia = createPinia();
-const app = createApp(App).use(router).use(pinia);
+const app = createApp(App).use(router)
+app.use(pinia);
+// useProductStore();
+
 
 registerPlugins(app)
 

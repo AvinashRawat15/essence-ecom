@@ -14,31 +14,31 @@
                             </v-toolbar>
                             <v-card-text>
                                 <v-form @submit.prevent="login">
-                                    <v-text-field density="compact" placeholder="Email address" v-model="email"
+                                    <v-text-field density="compact" label="Email address" required v-model="email"
                                         prepend-inner-icon="mdi-email-outline" variant="outlined"></v-text-field>
                                     <v-text-field :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-                                        :type="visible ? 'text' : 'password'" density="compact"
-                                        placeholder="Enter your password" prepend-inner-icon="mdi-lock-outline"
-                                        v-model="password" variant="outlined"
+                                        :type="visible ? 'text' : 'password'" density="compact" label="Enter your password"
+                                        required prepend-inner-icon="mdi-lock-outline" v-model="password" variant="outlined"
                                         @click:append-inner="visible = !visible"></v-text-field>
                                     <p class="text-caption text-decoration-none text-blue">Forgot Password?
                                     </p>
 
                                     <v-checkbox color="primary" model="rememberMe" label="Remember Me"></v-checkbox>
-                                    <v-snackbar :timeout="1000">
-                                        <template v-slot:activator="{ props }">
-                                            <v-row justify="center">
-                                                <v-btn class="mb-4" v-bind="props" type="submit" color="primary"
-                                                    rounded>Login</v-btn>
-                                            </v-row>
-                                        </template>
-                                        Login Successful
-                                    </v-snackbar>
+                                    <!-- <template v-slot:activator="{ props }"> -->
+                                    <v-row justify="center">
+                                        <v-btn class="mb-4" :disabled="!email || !password" type="submit" color="primary"
+                                            rounded>Login</v-btn>
+                                    </v-row>
 
                                     <p>Not a User?
                                         <router-link to="/SignUp">Sign Up</router-link>
                                     </p>
                                 </v-form>
+
+                                <v-snackbar :timeout="1000" v-model="showSnackbar">
+                                    Login Successful
+                                </v-snackbar>
+                                <!-- </template> -->
                             </v-card-text>
                         </v-sheet>
                     </v-col>
@@ -52,7 +52,7 @@
 import axios from 'axios';
 
 export default {
-    // name: 'Login',
+    name: 'Login',
 
     data() {
         return {
@@ -60,6 +60,7 @@ export default {
             rememberMe: localStorage.getItem('rememberMe') === 'true',
             email: '',
             password: '',
+            showSnackbar: false,
         };
     },
 
@@ -74,13 +75,12 @@ export default {
                     params: userObj,
                 });
 
-                console.log('response ------------------------>  ', response);
+                // console.log('response ----------------------  ', response);
 
                 if (response.data.length > 0) {
-                    alert('Login successful');
-                    // Store user credentials in localStorage
-                    let userData = response.data[0]
+                    let userData = response.data[0] // Store user credentials in localStorage
                     localStorage.setItem('userCredentials', JSON.stringify({ ...userData }));
+                    this.showSnackbar=true; //show Snackbar
                     this.$router.push({ name: 'HomePage' });
                 } else {
                     alert('Invalid email or password');

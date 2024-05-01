@@ -9,7 +9,7 @@
                             <v-img :src="product.image" height="200"></v-img>
                             <v-card-title>{{ product.title }}</v-card-title>
                             <v-card-subtitle>Price: ${{ product.price }}</v-card-subtitle>
-                            <v-btn class="ma-2" color="orange-darken-2" @click="goToCart">
+                            <v-btn class="ma-2" color="orange-darken-2" @click="addToCart">
                                 <v-icon icon="mdi-cart" start></v-icon>
                                 Add To Cart
                             </v-btn>

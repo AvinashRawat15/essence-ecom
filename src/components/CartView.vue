@@ -22,79 +22,12 @@
     </v-container>
 </template>
   
-<!-- <script>
-import axios from 'axios';
-
-export default {
-    name:'CartView',
-    data() {
-        return {
-            cartItems: [],
-        };
-    },
-    async mounted() {
-        await this.fetchCartData();
-    },
-    methods: {
-        async fetchCartData() {
-            try {
-                const response = await axios.get('https://fakestoreapi.com/carts');
-                console.log('response', response);
-                let productData = response.data.products; // Assuming the response has a products array
-                this.cartItems = [...productData]
-            } catch (error) {
-                console.error('Error fetching cart data:', error);
-            }
-        },
-        removeFromCart(itemId) {
-            // Implementation to remove item from cart
-            this.cartItems = this.cartItems.filter(item => item.id !== itemId);
-        },
-    },
-    computed: {
-        totalPrice() {
-            return this.cartItems?.reduce((total, item) => total + item.product?.price * item.quantity, 0);
-        },
-    },
-};
-</script>
-
-<style>
-/* Add any custom styles here */
-</style> --> -->
-
 <script>
-import axios from 'axios';
-
+import { useCartStore } from '@/stores/CartStore';
 export default {
-    data() {
-        return {
-            cartItems: [],
-        };
-    },
-    methods: {
-        async getCartItems() {
-            try {
-                const response = await axios.get('https://fakestoreapi.com/carts');
-                this.cartItems = response.data;
-            } catch (error) {
-                console.error(error);
-            }
-        },
-        async removeFromCart(itemId) {
-            try {
-                const response = await axios.delete(`https://fakestoreapi.com/carts/${itemId}`);
-                if (response.status === 200) {
-                    this.cartItems = this.cartItems.filter(item => item.id !== itemId);
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        },
-    },
-    created() {
-        this.getCartItems();
+    setup() {
+        const cartStore = useCartStore();
+        return { cartStore };
     },
 };
 </script>
-  
