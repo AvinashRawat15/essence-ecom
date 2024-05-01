@@ -2,11 +2,7 @@
   <v-container class="mb-8 bg-primary">
     <v-app-bar class="indigo" :elevation="2" style="background-color: #6363c5">
       <template v-slot:prepend>
-        <v-app-bar-nav-icon
-          color="white"
-          variant="text"
-          @click.stop="drawer = !drawer"
-        ></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon color="white" variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
         <v-btn variant="text" link to="/">Essence</v-btn>
       </template>
@@ -14,12 +10,7 @@
       <template v-slot:append>
         <v-tooltip text="Favourites" location="bottom">
           <template v-slot:activator="{ props }">
-            <v-btn
-              v-bind="props"
-              color="pink"
-              icon="mdi-heart"
-              to="/favourites"
-            ></v-btn>
+            <v-btn v-bind="props" color="pink" icon="mdi-heart" to="/favourites"></v-btn>
           </template>
         </v-tooltip>
         <v-tooltip text="Go to Cart" location="bottom">
@@ -28,13 +19,15 @@
           </template>
         </v-tooltip>
 
+
         <v-tooltip text="Search" location="bottom">
           <template v-slot:activator="{ props }">
             <v-btn v-bind="props" icon="mdi-magnify"></v-btn>
           </template>
         </v-tooltip>
+
         <h1 v-if="userName">Hi, {{ userName }}</h1>
-        <v-tooltip v-if="!userName" text="Profileooo" location="bottom">
+        <v-tooltip v-if="!userName" text="Profile" location="bottom">
           <template v-slot:activator="{ props }">
             <v-btn v-bind="props" icon="mdi-account-circle" to="/LogIn"></v-btn>
           </template>
@@ -67,11 +60,7 @@
       </template>
     </v-app-bar>
 
-    <v-navigation-drawer
-      v-model="drawer"
-      :location="$vuetify.display.mobile ? 'bottom' : undefined"
-      temporary
-    >
+    <v-navigation-drawer v-model="drawer" :location="$vuetify.display.mobile ? 'bottom' : undefined" temporary>
       <v-list :items="items"></v-list>
     </v-navigation-drawer>
   </v-container>
@@ -83,6 +72,10 @@ export default {
   data: () => ({
     drawer: false,
     dialog: false,
+    loaded: 'false',
+    loading: false,
+    userName: null,
+    group: null,
     items: [
       {
         title: "Foo",
@@ -110,6 +103,14 @@ export default {
   methods: {
     logout() {
       localStorage.clear();
+    },
+    onClick() {
+      this.loading = true
+
+      setTimeout(() => {
+        this.loading = false
+        this.loaded = true
+      }, 2000)
     },
   },
   computed: {

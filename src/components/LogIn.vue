@@ -18,16 +18,19 @@
                                         prepend-inner-icon="mdi-email-outline" variant="outlined"></v-text-field>
                                     <v-text-field :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
                                         :type="visible ? 'text' : 'password'" density="compact"
-                                        placeholder="Enter your password" prepend-inner-icon="mdi-lock-outline" v-model="password"
-                                        variant="outlined" @click:append-inner="visible = !visible"></v-text-field>
+                                        placeholder="Enter your password" prepend-inner-icon="mdi-lock-outline"
+                                        v-model="password" variant="outlined"
+                                        @click:append-inner="visible = !visible"></v-text-field>
                                     <p class="text-caption text-decoration-none text-blue">Forgot Password?
                                     </p>
 
                                     <v-checkbox color="primary" model="rememberMe" label="Remember Me"></v-checkbox>
                                     <v-snackbar :timeout="1000">
                                         <template v-slot:activator="{ props }">
-                                            <v-btn class="mb-4" v-bind="props" type="submit" color="primary"
-                                                rounded>Login</v-btn>
+                                            <v-row justify="center">
+                                                <v-btn class="mb-4" v-bind="props" type="submit" color="primary"
+                                                    rounded>Login</v-btn>
+                                            </v-row>
                                         </template>
                                         Login Successful
                                     </v-snackbar>
@@ -64,21 +67,21 @@ export default {
         async login() {
             try {
                 let userObj = {
-                        email: this.email,
-                        password: this.password,
-                    }
+                    email: this.email,
+                    password: this.password,
+                }
                 const response = await axios.get('http://localhost:3000/users', {
                     params: userObj,
                 });
 
-                console.log('response ------------------------>  ',response);
+                console.log('response ------------------------>  ', response);
 
                 if (response.data.length > 0) {
                     alert('Login successful');
                     // Store user credentials in localStorage
                     let userData = response.data[0]
-                    localStorage.setItem('userCredentials', JSON.stringify({...userData}));
-                    this.$router.push({ name: 'HomePage' }); 
+                    localStorage.setItem('userCredentials', JSON.stringify({ ...userData }));
+                    this.$router.push({ name: 'HomePage' });
                 } else {
                     alert('Invalid email or password');
                 }
